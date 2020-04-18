@@ -70,14 +70,16 @@ void Bank::execute() {
                     username = new String();
                     password = new String();
                     command = new String();
-                    std::cout << "Enter username" << std::endl;
+                    std::cout << "Enter username or print exit:" << std::endl;
                     std::cin >> *username;
+                    if (*username == "exit") break;
                     getClientByUsername(username);
                     std::cout << "Such username already exists" << std::endl;
                 }
                 catch (const NoSuchUserException &e) {
-                    std::cout << "Enter password" << std::endl;
+                    std::cout << "Enter password or print exit:" << std::endl;
                     std::cin >> *password;
+                    if (*password == "exit") break;
                     getClients()->add(new User(new String(username->getLine()),
                                                new String(password->getLine()), this));
                     break;
@@ -92,10 +94,12 @@ void Bank::execute() {
                     username = new String();
                     password = new String();
                     command = new String();
-                    std::cout << "Enter username:" << std::endl;
+                    std::cout << "Enter username or print exit:" << std::endl;
                     std::cin >> *username;
-                    std::cout << "Enter password:" << std::endl;
+                    if (*username == "exit") break;
+                    std::cout << "Enter password or print exit:" << std::endl;
                     std::cin >> *password;
+                    if (*password == "exit") break;
                     currentClient = getClientByUsername(username);
                     if (!isLinesEquals(currentClient->getPassword()->getLine(),
                             password->getLine())) {
@@ -108,6 +112,7 @@ void Bank::execute() {
                     std::cout << "No such user found" << std::endl;
                 }
             }
+            if (currentClient == nullptr) continue;
             while (true){
                 delete username;
                 delete password;
@@ -137,6 +142,9 @@ void Bank::execute() {
         }
         else if (*command == "exit"){
             break;
+        }
+        else {
+            std::cout << "Wrong command"<< std::endl;
         }
     }
 }

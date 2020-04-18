@@ -69,6 +69,9 @@ void Admin::execute(String * comm) {
         std::cout << "Enter username:" << std::endl;
         std::cin >> *username;
         bills = this->getUserBills(username);
+        if (bills->getSize() == 0) {
+            std::cout << "No bills been found" << std::endl;
+        }
         for (int i = 0; i < bills->getSize(); i++){
             bills->get(i)->toString();
         }
@@ -94,7 +97,7 @@ List<Bill *> *Admin::getUserBills(String *username) {
     List<Client *> * clients = getAllClients();
 
     for(int i = 0; i < clients->getSize(); i++){
-        if (instanceof<User *>(clients->get(i))
+        if (instanceof<User>(clients->get(i))
                 && isLinesEquals(clients->get(i)->getUsername()->getLine(),
                           username->getLine())){
             User * user = (User *) clients->get(i);
@@ -106,5 +109,5 @@ List<Bill *> *Admin::getUserBills(String *username) {
 
 void Admin::printCommands() {
     std::cout << "This is your command panel. You can enter some of this commands" << std::endl;
-    std::cout << "(change_username, change_password, get_user_bills, get_all_clients)" << std::endl;
+    std::cout << "(change_username, change_password, get_user_bills, get_all_clients, exit)" << std::endl;
 }

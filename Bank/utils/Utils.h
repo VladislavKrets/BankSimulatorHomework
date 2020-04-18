@@ -9,8 +9,8 @@
 int countLength(char * line);
 bool isLinesEquals(char * line1, char * line2);
 template<typename Base, typename T>
-bool instanceof(const T*) {
-    return std::is_base_of<Base, T>::value;
+inline bool instanceof(T * t) {
+    return dynamic_cast<Base*>(t) != nullptr;
 }
 
 #endif //BANKSIMULATOR_UTILS_H
