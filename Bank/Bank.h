@@ -14,7 +14,6 @@ class Bank{
 public:
     Bank(long cash);
 
-public:
     long getCash() const;
 
     void setCash(long cash);

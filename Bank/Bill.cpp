@@ -4,6 +4,7 @@
 
 #include "Bill.h"
 #include "clients/User.h"
+#include "exceptions/TooLowMoneyException.h"
 
 Bill::Bill(long number, long cash, User * user) : number(number), cash(cash), user(user) {}
 
@@ -23,7 +24,7 @@ void Bill::setCash(long cash) {
 
 void Bill::addCash(long cash) {
     if (Bill::cash + cash < 0) {
-        std::cout << "Error, too low money" << std::endl;
+        throw TooLowMoneyException();
     }
     else {
         Bill::cash += cash;
@@ -42,5 +43,6 @@ void Bill::toString() {
     sprintf(number, "%ld", this->number);
     char cash [22];
     sprintf(cash, "%ld", this->cash);
-    std::cout << *str << *user->getUsername() << "\n\tBill number: " << number << "\n\tCash: " << cash << std::endl;
+    std::cout << *str << *user->getUsername() << "\n\tBill number: "
+    << number << "\n\tCash: " << cash << std::endl;
 }

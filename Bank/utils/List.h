@@ -46,9 +46,6 @@ public:
     int getSize(){
         return length;
     }
-
-
 };
-
 
 #endif //BANKSIMULATOR_LIST_H

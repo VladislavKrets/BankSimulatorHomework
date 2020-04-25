@@ -15,7 +15,6 @@ namespace UserParams{
     const char * ADD_MONEY = "add_money";
     const char * GET_MONEY = "get_money";
     const char * BILLS_LIST = "bills_list";
-    const char * EXIT = "exit";
 };
 
 User::User(String *username, String *password, Bank *bank)

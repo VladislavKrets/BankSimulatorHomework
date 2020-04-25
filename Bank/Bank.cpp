@@ -9,6 +9,7 @@
 #include "exceptions/BillAlreadyExistsException.h"
 #include "exceptions/NoSuchBillException.h"
 #include "exceptions/WrongCommandException.h"
+#include "exceptions/TooLowMoneyException.h"
 
 long Bank::getCash() const {
     return cash;
@@ -34,6 +35,8 @@ Bank::Bank(long cash) : cash(cash) {
 List<Bill *> *Bank::getBills() const {
     return bills;
 }
+
+
 
 void Bank::execute() {
     String * username = new String();
@@ -63,13 +66,13 @@ void Bank::execute() {
 
         if (*command == "register") {
             while (true) {
+                delete username;
+                delete password;
+                delete command;
+                username = new String();
+                password = new String();
+                command = new String();
                 try {
-                    delete username;
-                    delete password;
-                    delete command;
-                    username = new String();
-                    password = new String();
-                    command = new String();
                     std::cout << "Enter username or print exit:" << std::endl;
                     std::cin >> *username;
                     if (*username == "exit") break;
@@ -87,13 +90,13 @@ void Bank::execute() {
             }
         } else if (*command == "login") {
             while (true) {
+                delete username;
+                delete password;
+                delete command;
+                username = new String();
+                password = new String();
+                command = new String();
                 try {
-                    delete username;
-                    delete password;
-                    delete command;
-                    username = new String();
-                    password = new String();
-                    command = new String();
                     std::cout << "Enter username or print exit:" << std::endl;
                     std::cin >> *username;
                     if (*username == "exit") break;
@@ -134,6 +137,9 @@ void Bank::execute() {
                 }
                 catch (const NoSuchBillException &e){
                     std::cout << "No such bill found " << e.getBillNumber() << std::endl;
+                }
+                catch (const TooLowMoneyException &e){
+                    std::cout << "Error, too low money" << std::endl;
                 }
                 catch (const WrongCommandException &e){
                     std::cout << "Wrong command"<< std::endl;
