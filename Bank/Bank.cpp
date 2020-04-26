@@ -145,6 +145,7 @@ void Bank::execute() {
                     std::cout << "Wrong command"<< std::endl;
                 }
             }
+            currentClient = nullptr;
         }
         else if (*command == "exit"){
             break;

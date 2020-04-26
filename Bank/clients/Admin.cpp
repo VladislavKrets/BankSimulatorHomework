@@ -42,6 +42,24 @@ Admin::Admin(String *username, String *password, Bank *bank)
     std::cout << "You have been authorized as administrator" << std::endl;
 }
 
+List<Client *> *Admin::getAllClients() {
+    return this->getBank()->getClients();
+}
+
+List<Bill *> *Admin::getUserBills(String *username) {
+    List<Client *> * clients = getAllClients();
+
+    for(int i = 0; i < clients->getSize(); i++){
+        if (instanceof<User>(clients->get(i))
+            && isLinesEquals(clients->get(i)->getUsername()->getLine(),
+                             username->getLine())){
+            User * user = (User *) clients->get(i);
+            return user->getBills();
+        }
+    }
+    throw NoSuchUserException(username);
+}
+
 void Admin::execute(String * comm) {
     String * username = new String();
     String * newUsername = new String();
@@ -87,24 +105,6 @@ void Admin::execute(String * comm) {
     }
     delete username;
     delete  newUsername;
-}
-
-List<Client *> *Admin::getAllClients() {
-    return this->getBank()->getClients();
-}
-
-List<Bill *> *Admin::getUserBills(String *username) {
-    List<Client *> * clients = getAllClients();
-
-    for(int i = 0; i < clients->getSize(); i++){
-        if (instanceof<User>(clients->get(i))
-                && isLinesEquals(clients->get(i)->getUsername()->getLine(),
-                          username->getLine())){
-            User * user = (User *) clients->get(i);
-            return user->getBills();
-        }
-    }
-    throw NoSuchUserException(username);
 }
 
 void Admin::printCommands() {

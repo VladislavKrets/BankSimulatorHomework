@@ -74,11 +74,14 @@ void User::execute(String * comm) {
     String command = *comm;
     if (command == UserParams::SEND_MONEY) {
         std::cout << "Enter your billNumber you want to send money from: " << std::endl;
-        std::cin >> thisBillNumber;
+        std::cin >> temp;
+        thisBillNumber = temp.parseLong();
         std::cout << "Enter your billNumber you want to send money to: " << std::endl;
-        std::cin >> thatBillNumber;
+        std::cin >> temp;
+        thatBillNumber = temp.parseLong();
         std::cout << "Enter amount of money you want to send: " << std::endl;
-        std::cin >> cash;
+        std::cin >> temp;
+        cash = temp.parseLong();
         sendMoney(thatBillNumber, thisBillNumber, cash);
     } else if (command == UserParams::OPEN_BILL) {
         while (bill == nullptr) {
